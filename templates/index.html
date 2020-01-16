@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/index/index.css">
+</head>
+<body>
+    <div class="body clearfix">
+        <div class="head clearfix">
+            <img src="/static/index/4.png" alt="picture">
+            <div class="text">Blue berry</div>
+            <div class="cn">文档</div>
+            <div class="intro">网站介绍</div>
+        </div>
+        <div class="footer">蓝莓文档 版权所有</div>
+        <div class="loop">
+            <div class="_loop">
+                <img id="loopImg" src="/static/index/0.jpg" alt="这是图片">
+                <ul>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+        <div class="login">
+            <div class="lhead clearfix">
+                <div class="log">登录</div>
+                <div class="reg">注册</div>
+            </div>
+            <div class="loginView">
+                <form class="wrap" action="">
+                    <div class="user">
+                        <label id="userLabel" for="username">请输入用户名</label>
+                        <input type="text" name="username" id="username">
+                    </div>
+                    <div class="pass">
+                        <label id="passLabel" for="password">请输入密码</label>
+                        <input type="password" name="password" id="password">
+                    </div>
+                    <button class="button" id="loginBtn">登录</button>
+                </form>
+            </div>
+            <div class="regView">
+                <div class="wrap">
+                    <div class="user">
+                        <label id="ruserLabel" for="rusername">请输入用户名</label>
+                        <input type="text" name="username" id="rusername">
+                    </div>
+                    <div class="pass">
+                        <label id="rpassLabel" for="rpassword">请输入密码</label>
+                        <input type="password" name="password" id="rpassword">
+                    </div>
+                    <div class="passCon">
+                        <label id="passLabelCon" for="passwordCon">请确认密码</label>
+                        <input type="password" name="passwordCon" id="passwordCon">
+                    </div>
+                    <button id="regBtn" onclick="register()">注册</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    let intro=document.getElementsByClassName("intro")[0]
+    intro.onclick=function(){
+        window.location.href="../static/index/intro.html"
+    }
+
+    //轮播js
+    index=0;
+    lis=document.getElementsByTagName("li")
+    image=document.getElementById("loopImg")
+    lis[0].style.backgroundColor="red"
+    let timer=setInterval(change,4000);
+    for(let i=0;i<lis.length;i++)
+    {
+        lis[i].onclick=function(){
+            clear()
+            clearInterval(timer)//清除计时器
+            index=i
+            this.style.backgroundColor="red"
+            image.src="/static/index/"+i+".jpg"
+            console.log(image.src)
+            timer=setInterval(change,4000);//重启计时器
+        }
+    }
+    function clear(){
+        for(let i=0;i<lis.length;i++)
+        {
+            lis[i].style.backgroundColor="bisque"
+        }
+    }
+    function change(){
+        index++
+        if(index==4)
+        {
+            index=0
+        }
+        clear()
+        image.src="/static/index/"+index+".jpg"
+        lis[index].style.backgroundColor="red"
+    }
+
+    //登录js
+    {
+        let login=document.getElementsByClassName("log")[0]
+        let reg=document.getElementsByClassName("reg")[0]
+        var userText=document.getElementById("username")
+        var userLabel=document.getElementById("userLabel")
+        var passText=document.getElementById("password")
+        var passLabel=document.getElementById("passLabel")
+        var ruserText=document.getElementById("rusername")
+        var ruserLabel=document.getElementById("ruserLabel")
+        var rpassText=document.getElementById("rpassword")
+        var rpassLabel=document.getElementById("rpassLabel")
+        var passTextCon=document.getElementById("passwordCon")
+        var passLabelCon=document.getElementById("passLabelCon")
+        var loginview=document.getElementsByClassName("loginView")[0]
+        var regview=document.getElementsByClassName("regView")[0]
+
+        login.onclick=function(){
+            reg.style.borderBottom="0"
+            reg.style.color="black"
+            login.style.color="rgb(0, 153, 255)"
+            login.style.borderBottom="6px solid rgb(0, 153, 255)"
+            regview.style.display="none"
+            loginview.style.display="block"
+        }
+
+        reg.onclick=function(){
+            login.style.borderBottom="0"
+            login.style.color="black"
+            reg.style.color="rgb(0, 153, 255)"
+            reg.style.borderBottom="6px solid rgb(0, 153, 255)"
+            loginview.style.display="none"
+            regview.style.display="block"
+        }
+
+        userText.onkeyup=function(){
+            changeLabel(this,userLabel);
+        }
+        passText.onkeyup=function(){
+            changeLabel(this,passLabel)
+        }
+        ruserText.onkeyup=function(){
+            changeLabel(this,ruserLabel);
+        }
+        rpassText.onkeyup=function(){
+            changeLabel(this,rpassLabel)
+        }
+        passTextCon.onkeyup=function(){
+            changeLabel(this,passLabelCon)
+        }
+        function changeLabel(a,b){
+        var val=a.value.split(" ").join("")
+        if(val==""){
+            b.style.display="block"
+            a.value=""
+        }else{
+            b.style.display="none"
+        }
+        }
+    }
+
+
+    //注册函数
+    {
+        let reg=document.getElementById("regBtn")
+        function register(){
+            let username=document.getElementById("rusername").value
+            let passwd=document.getElementById("rpassword")
+            let passwdCon=document.getElementById("passwordCon")
+            if(passwd.value!=passwdCon.value){
+                alert("密码不一致")
+                passwd.value=""
+                passwdCon.value=""
+            }
+            else{
+
+                let mes={
+                username:username,
+                passwd:passwd.value,
+                }
+
+                    var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+                    httpRequest.open('POST', 'http://127.0.0.1:8080/reg/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
+                    httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
+                    httpRequest.send(JSON.stringify(mes));//发送请求 将json写入send中
+                     /**
+                     * 获取数据后的处理程序
+                    */
+                        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+                        if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+                        var res = httpRequest.responseText;//获取到服务端返回的数据
+                        console.log(res)
+                        if(res=='no'){
+                            console.log(res)
+                        }
+                        else{
+                            window.location.href='../static/index/editor.html'
+                        }
+                        }
+                };
+                
+            }
+            }
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Full Editor - Quill Rich Text Editor</title>
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="language" content="english">
+<meta name="viewport" content="width=device-width">
+<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+<meta name="description" content="Quill is a free, open source WYSIWYG editor built for the modern web. Completely customize it for any need with its modular architecture and expressive API.">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@quilljs">
+
+<meta name="twitter:title" content="Full Editor - Quill">
+
+<meta name="twitter:description" content="Quill is a free, open source rich text editor built for the modern web.">
+<meta name="twitter:image" content="https://quilljs.com/assets/images/brand-asset.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://quilljs.com/standalone/full/">
+<meta property="og:image" content="https://quilljs.com/assets/images/brand-asset.png">
+<meta property="og:title" content="Full Editor - Quill">
+<meta property="og:site_name" content="Quill">
+
+<link rel="canonical" href="https://quilljs.com/standalone/full/">
+<link type="application/atom+xml" rel="alternate" href="https://quilljs.com/feed.xml" title="Quill - Your powerful rich text editor" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css" />
+
+<link rel="stylesheet" href="/static/quill.snow.css" />
+
+<link href="/static/lib/mathquill.css" rel="stylesheet">
+<link href="/static/lib/matheditor.css" rel="stylesheet">
+
+<style>
+  body > #standalone-container {
+    margin: 50px auto;
+    max-width: 720px;
+  }
+  #editor-container {
+    height: 350px;
+  }
+</style>
+
+
+</head>
+<body>
+
+<div id="standalone-container">
+  <div id="toolbar-container"><!--定义页面中的按钮-->
+    <span class="ql-formats">
+      <select class="ql-font"></select>
+      <select class="ql-size"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-bold"></button>
+      <button class="ql-italic"></button>
+      <button class="ql-underline"></button>
+      <button class="ql-strike"></button>
+    </span>
+    <span class="ql-formats">
+      <select class="ql-color"></select>
+      <select class="ql-background"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-script" value="sub"></button>
+      <button class="ql-script" value="super"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-header" value="1"></button>
+      <button class="ql-header" value="2"></button>
+      <button class="ql-blockquote"></button>
+      <button class="ql-code-block"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-list" value="ordered"></button>
+      <button class="ql-list" value="bullet"></button>
+      <button class="ql-indent" value="-1"></button>
+      <button class="ql-indent" value="+1"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-direction" value="rtl"></button>
+      <select class="ql-align"></select>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-link"></button>
+      <button class="ql-image"></button>
+      <button class="ql-video"></button>
+      <button class="ql-formula"></button>
+    </span>
+    <span class="ql-formats">
+      <button class="ql-clean"></button>
+      <button class="custom" onclick="custom()">print</button>
+    </span>
+      <span class="ql-formats">
+      <button class="custom" onclick="upLoad()">upLoad</button>
+     </span>
+      <span class="ql-formats">
+      <button class="custom" onclick="getMes()">getMes</button>
+     </span>
+      <span class="ql-formats">
+      <button class="custom little" onclick="getFormula()">公式</button><!--自定义的按钮，点击公式触发getFormula()函数-->
+     </span>
+  </div>
+  <div id="editor-container"></div>
+
+   <div style="background:#F6F4F4;overflow:hidden">
+  <div id="answer"></div>
+  <button id="btn" onclick="show()">获取latex</button><!--输入公式的编辑框和按钮-->
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+<script src="/static/quill.min.js"></script>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="/static/lib/mathquill.min.js"></script>
+<script src="/static/lib/matheditor.js"></script>
+
+<script>
+    /**
+   * 页面禁用拖拽上传时 浏览器默认打开图片
+   */
+  document.addEventListener('drop', function (e) {<!--防止拖拽图片时浏览器默认打开图片-->
+    e.preventDefault()
+  }, false)
+  document.addEventListener('dragover', function (e) {
+    e.preventDefault()
+  }, false)
+
+  hljs.configure({   // optionally configure hljs
+  languages: ['javascript', 'ruby', 'python','c++']//使编辑器中可以添加代码
+});
+  var quill = new Quill('#editor-container', {//创建编辑器对象
+    modules: {
+      formula: true,
+      syntax: true,
+      toolbar: '#toolbar-container'
+    },
+    placeholder: 'Compose an epic...',
+    theme: 'snow'
+
+  });
+
+  var delta
+  function custom(){
+    console.log("custom")
+    delta = quill.getContents();//传送json对象
+    console.log(delta)
+      quill.insertEmbed(0,'formula',"e=mc^2")
+      quill.insertEmbed(0,'formula',"e=mc^m")
+      quill.insertEmbed(0,'formula',"e=mc^2")
+  }
+  function upLoad(){//向后端发送数据
+      console.log("upLoad")
+      var prom=prompt("请输入名称","")
+    var delta = quill.getContents();//传送json对象
+    console.log(delta)
+      var obj={
+        'del':delta,
+          'name':prom,
+      }
+    var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+    httpRequest.open('POST', 'http://127.0.0.1:8080/TestJson/', true); //第二步：打开连接/***发送json格式文件必须设置请求头 ；如下 - */
+    httpRequest.setRequestHeader("Content-type","application/json");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）var obj = { name: 'zhansgan', age: 18 };
+    httpRequest.send(JSON.stringify(obj));//发送请求 将json写入send中
+  }
+
+  function getMes(){
+        var prom=prompt("请输入名称","")
+        var httpRequest = new XMLHttpRequest();//第一步：创建需要的对象
+        httpRequest.open('POST', 'http://127.0.0.1:8080/reJson/', true); //第二步：打开连接
+        httpRequest.setRequestHeader("Content-type","application/x-www-form-urlencoded");//设置请求头 注：post方式必须设置请求头（在建立连接后设置请求头）
+        httpRequest.send('name='+prom);//发送请求 将情头体写在send中
+        /**
+        * 获取数据后的处理程序
+        */
+        httpRequest.onreadystatechange = function () {//请求后的回调接口，可将请求成功后要执行的程序写在其中
+        if (httpRequest.readyState == 4 && httpRequest.status == 200) {//验证请求是否发送成功
+            var json = JSON.parse(httpRequest.responseText);//获取到服务端返回的数据
+            quill.setContents(json.del)
+        }
+};
+  }
+
+  //拖动图片上传
+    var editor=document.getElementById("editor-container")
+    editor.ondrop = function(ev){//定义拖拽图片时触发的函数
+    var oFile = ev.dataTransfer.files[0];
+    var reader = new FileReader()
+    reader.readAsDataURL(oFile);
+        reader.onload = function(){
+                    //console.log(reader.result);
+            var length=quill.getLength()
+            console.log(length)
+            quill.insertEmbed(length-1,'image',reader.result)
+            quill.setSelection(quill.getLength()+1)
+                }
+    }
+
+
+  var me = new MathEditor('answer');
+  // me.removeButtons(['fraction']);
+  me.setTemplate('floating-toolbar',300,300);
+
+  function getFormula()//定义公式按钮函数
+  {
+      var x=document.getElementById("answer");
+      console.log(x)
+      var y=document.getElementById("btn");
+      console.log(y)
+      x.style.display='block'
+      y.style.display='block'
+  }
+
+  function show()
+  {
+        var len=quill.getLength();
+        quill.insertEmbed(len,'formula',me.getLatex())
+        var x=document.getElementById("answer");
+        var y=document.getElementById("btn");
+        x.style.display='none'
+        y.style.display='none'
+   }
+
+</script>
+<style>
+    .little{
+        font-size: 8px;
+    }
+    #answer{
+        display: none;
+    }
+    #btn{
+        display: none;
+    }
+</style>
+</body>
+</html>

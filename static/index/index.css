@@ -1,0 +1,242 @@
+.body{
+    position:relative;
+    height:100vh;
+}
+
+body{
+    margin:0;
+    height:100vh;
+    background-color: rgb(238, 224, 224);
+}
+
+.head{
+    padding:30px;
+}
+
+.head img{
+    float:left;
+    width:50px;
+    height:50px;
+    border-radius: 5px;
+    margin-right: 20px;
+}
+
+.clearfix:after{
+    content:'\200B';
+    clear:both;
+    display:block;
+    height:0;
+}
+
+.clearfix{
+    *zoom:1;
+}
+
+.head .text{
+    float:left;
+    height:60px;
+    font-size: 25px;
+    padding-top:10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.head .cn{
+    float:left;
+    margin-left: 10px;
+    height:60px;
+    font-size: 20px;
+    padding-top:15px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+}
+
+.head .intro{
+    float:right;
+    margin-right:30px;
+    color:rgb(100, 98, 98)
+}
+
+.head .intro:hover{
+    cursor:pointer;
+}
+
+.footer{
+    color:rgb(150, 146, 146);
+    font-size:larger;
+    position:absolute;
+    bottom:30px;
+    width:100%;
+    text-align:center;
+}
+
+.loop{
+    height:350px;
+    width:450px;
+    float:left;
+    margin-left: 100px;
+    margin-top:40px;
+    padding:45px;
+    background-color:  rgb(238, 224, 224);
+}
+
+.login{
+    height:450px;
+    width:450px;
+    float:right;
+    margin-right: 50px;
+    margin-top:40px;
+    background-color: rgb(240, 240, 240);
+    border:1px solid rgb(100, 98, 98);
+}
+
+._loop{
+    position:relative;
+    width:450px;
+    height:350px;
+    background-color: cornflowerblue;
+}
+
+._loop img{
+    width:100%;
+    height:100%;
+}
+
+._loop ul{
+    list-style:none;
+    position:absolute;
+    left:105px;
+    bottom:10px;
+}
+
+._loop li{
+    float:left;
+    margin-right:30px;
+    width:10px;
+    height:10px;
+    background-color: bisque;
+    border-radius:50%;
+    text-align:center;
+    color: bisque;
+}
+
+.login .lhead{
+    border-bottom:1px solid rgb(66, 66, 66);
+    height:60px;
+}
+
+.login .log{
+    float:left;
+    margin-left: 30px;
+    line-height: 55px;
+    font-size:25px;
+    font-weight: bolder;
+}
+
+.login .log:hover{
+    color:rgb(0, 153, 255);
+    cursor:pointer;
+}
+
+.login .reg{
+    float:left;
+    font-size:25px;
+    line-height:55px;
+    margin-left:70px;
+    font-weight: bolder;
+}
+
+.login .reg:hover{
+    color:rgb(0, 153, 255);
+    cursor:pointer;
+}
+
+.wrap{
+    width:300px;
+    height:100px;
+    padding:12px;
+    margin:40px auto;
+}
+
+.user, .pass, .passCon, .btn{
+    position:relative;
+    height:45px;
+    padding-left:48px;
+    border:1px solid #d9d9d9;
+    border-radius:3px;
+}
+
+.user{
+    margin-bottom:30px;
+    background:url("/static/index/user.png") 0 10px no-repeat;
+    background-size: 30px 30px;
+}
+
+.pass{
+    margin-bottom:30px;
+}
+
+.pass, .passCon{
+    background: url("/static/index/pas.png") 0 10px no-repeat;
+    background-size: 30px 30px;
+}
+
+.wrap label, .wrap input{
+    position:absolute;
+    top:0;
+    left:48px;
+}
+
+#id{
+    position:absolute;
+    top:0;
+    left:0px; 
+}
+
+.wrap label{
+    z-index:1;
+    width:250px;
+    height:100%;
+    line-height:46px;
+    color:#666;
+    cursor:text;
+}
+
+.wrap input{
+    width:200px;
+    height:100%;
+    border:none;
+    background:transparent;
+    line-height:46px;
+    outline:none;
+}
+
+.wrap button{
+    margin:30px auto;
+    width:300px;
+    background-color: rgb(0, 153, 255);
+    border:0;
+    font-size: 20px;
+    line-height:40px;
+}
+
+.wrap .btn{
+    margin:30px auto;
+    background-color: rgb(0, 153, 255);
+    border:0;
+    font-size: 25px;
+    line-height:40px;
+    text-align:center;
+}
+
+.wrap .btn input{
+    font-size:20px;
+}
+
+.wrap button:hover{
+    cursor:pointer;
+}
+
+.regView{
+    display:none;
+}
+

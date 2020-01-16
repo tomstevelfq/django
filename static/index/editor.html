@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .body{
+            background-color:  rgb(226, 185, 185);
+            padding:0;
+            margin:0;
+        }
+
+        .all{
+            float:left;
+            height:100vh;
+            width:300px;
+            background-color: aqua;
+            border-right:1px solid rgba(128, 128, 128, 0.39);
+        }
+        .clearfix:after{
+            content:'\200B';
+            display:block;
+            clear:both;
+            height:0;
+        }
+        .clearfix{
+            *zoom: 1;
+        }
+        .logo{
+            padding:15px 0 0 30px;
+        }
+
+        .logo img{
+            float:left;
+            width:50px;
+            height:50px;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+        .logo .text{
+            float:left;
+            height:60px;
+            font-size: 25px;
+            padding-top:10px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        .newfile{
+            width:200px;
+            background-color: cornflowerblue;
+            height:40px;
+            font-size: larger;
+            border:0;
+            margin-left: 30px;
+            color:azure;
+            margin-top: 30px;
+        }
+        .fra{
+            padding:30px;
+        }
+        .myfile{
+            padding: 10px 0 10px 0;
+            border-bottom: 1px solid rgba(131, 131, 131, 0.418);
+            margin-bottom: 20px;
+        }
+        .myfile img{
+            float:left;
+            width:20px;
+            height:20px;
+            border-radius: 5px;
+            margin-left:10px;
+            margin-right: 10px;
+        }
+        .myfile .in{
+            padding:10px 0 10px 0;
+        }
+        .myfile .in:hover{
+            background-color: rgb(0, 255, 213);
+            cursor:pointer;
+        }
+        .my{
+            height:80px;
+            background-color: rgb(194, 194, 243);
+        }
+
+        .my .box{
+            float:right;
+            width:50px;
+            height:50px;
+            border-radius:50%;
+            margin-right: 30px;
+            margin-top: 10px;
+            padding:2px;
+        }
+
+        .my .box:hover{
+            border:1px solid rgb(255, 255, 255);
+            cursor:pointer;
+        }
+
+        .my .box img{
+            width:100%;
+            height:100%;
+            border-radius:50%;
+        }
+
+        .my img:hover{
+            cursor:pointer;
+        }
+
+        .my .m{
+            float:right;
+            width:30px;
+            height:30px;
+            margin-right: 20px;
+            margin-top: 20px;
+        }
+        .my input{
+            border:none;
+            outline:none;
+            background:transparent;
+            font-size: 20px;
+            width:500px;
+        }
+        .my .search{
+            float:left;
+            padding:5px;
+            border:0.5px solid black;
+            border-radius:5px;
+            background-color: blanchedalmond;
+            margin-top: 20px;
+            margin-left: 40px;
+        }
+        .search img{
+            width:18px;
+            height:18px;
+        }
+        .content{
+            width:200px;
+            height:200px;
+            background-color: black;
+            clear:both;
+        }
+        .list{
+            height:600px;
+            background-color: blueviolet;
+            margin-left: 300px;
+        }
+        .list .lis{
+            width:100%;
+            height:100px;
+            background-color: brown;
+        }
+        .latest{
+            font-size: 30px;
+            margin-left: 40px;
+        }
+        .week{
+            margin-top: 20px;
+        }
+        .week div{
+            width:28%;
+            float:left;
+            margin-left: 40px;
+            color:rgb(161, 174, 199);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body class="body clearfix">
+    <div class="all">
+        <div class="logo clearfix">
+            <img src="/static/index/4.png" alt="picture">
+            <div class="text">Blue berry</div>
+        </div>
+        <button class="newfile" onclick="newfile()">+  新建</button>
+        <div class="fra">
+            <div class="myfile">
+                <div class="in">
+                    <img src="/static/index/文档.png">
+                    <div class="text">我的文档</div>
+                </div>
+            </div>
+            <div class="myfile">
+                <div class="in">
+                    <img src="/static/index/最近.png">
+                    <div class="text">最近浏览</div>
+                </div>
+            </div>
+            <div class="myfile">
+                <div class="in">
+                    <img src="/static/index/人.png">
+                    <div class="text">与我共享</div>
+                </div>
+            </div>
+            <div class="myfile">
+                <div class="in">
+                    <img src="/static/index/星.png">
+                    <div class="text">星标文档</div>
+                </div>
+            </div>
+            <div class="myfile">
+                <div class="in">
+                    <img src="/static/index/回收站.png">
+                    <div class="text">回收站</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="my clearfix">
+        <div class="box">
+            <img class="b" src="/static/index/3.jpg">
+        </div>
+        <img class="m" src="/static/index/铃铛.png">
+        <img class="m" src="/static/index/选项.png">
+        <div class="search">
+            <img src="/static/index/搜索.png">
+            <input type="text" name="search" id="search" placeholder="hha">
+        </div>
+    </div>
+    <div class="list">
+        <div class="latest">最近浏览</div>
+        <div class="lis">
+            <div class="week clearfix">
+                <div>一周内</div>
+                <div>一周内</div>
+                <div>一周内</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
